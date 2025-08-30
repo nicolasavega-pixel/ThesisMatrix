@@ -109,6 +109,114 @@ class ThesisGenerator:
         
         return titulos
     
+    def generate_operationalization_matrix(self, session_data):
+        """Generate operationalization matrix from step-by-step data"""
+        
+        tema = session_data.get('tema_delimitado', session_data.get('tema_general', ''))
+        enfoque = session_data.get('enfoque', '')
+        diseno = session_data.get('diseno', '')
+        
+        # Create basic operationalization structure
+        matriz_operacionalizacion = []
+        
+        if enfoque.lower() == 'cuantitativo':
+            # Quantitative approach - focus on variables
+            matriz_operacionalizacion = [
+                {
+                    'variable': 'Variable Independiente',
+                    'definicion_conceptual': f'Concepto teórico relacionado con {tema.lower()}',
+                    'definicion_operacional': 'Definir cómo se medirá esta variable',
+                    'dimensiones': ['Dimensión 1', 'Dimensión 2'],
+                    'indicadores': ['Indicador 1.1', 'Indicador 1.2', 'Indicador 2.1', 'Indicador 2.2'],
+                    'items': ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                    'escala': 'Escala de Likert (1-5)',
+                    'instrumento': 'Cuestionario'
+                },
+                {
+                    'variable': 'Variable Dependiente',
+                    'definicion_conceptual': f'Resultado esperado en {tema.lower()}',
+                    'definicion_operacional': 'Definir cómo se medirá el resultado',
+                    'dimensiones': ['Dimensión A', 'Dimensión B'],
+                    'indicadores': ['Indicador A.1', 'Indicador A.2', 'Indicador B.1', 'Indicador B.2'],
+                    'items': ['Item A', 'Item B', 'Item C', 'Item D'],
+                    'escala': 'Escala numérica',
+                    'instrumento': 'Prueba/Test'
+                }
+            ]
+        else:
+            # Qualitative or mixed approach - focus on categories
+            matriz_operacionalizacion = [
+                {
+                    'categoria': 'Categoría Principal 1',
+                    'definicion_conceptual': f'Primera categoría de análisis para {tema.lower()}',
+                    'subcategorias': ['Subcategoría 1.1', 'Subcategoría 1.2'],
+                    'indicadores': ['Conducta observable 1', 'Conducta observable 2'],
+                    'preguntas_guia': ['¿Pregunta 1?', '¿Pregunta 2?'],
+                    'tecnica': 'Entrevista semiestructurada',
+                    'instrumento': 'Guía de entrevista'
+                },
+                {
+                    'categoria': 'Categoría Principal 2',
+                    'definicion_conceptual': f'Segunda categoría de análisis para {tema.lower()}',
+                    'subcategorias': ['Subcategoría 2.1', 'Subcategoría 2.2'],
+                    'indicadores': ['Conducta observable 3', 'Conducta observable 4'],
+                    'preguntas_guia': ['¿Pregunta 3?', '¿Pregunta 4?'],
+                    'tecnica': 'Observación participante',
+                    'instrumento': 'Ficha de observación'
+                }
+            ]
+        
+        return matriz_operacionalizacion
+    
+    def generate_operationalization_matrix_from_existing(self, matriz_existente):
+        """Generate operationalization matrix from existing consistency matrix"""
+        
+        variables_text = matriz_existente.get('variables', '')
+        enfoque = matriz_existente.get('metodologia_enfoque', '')
+        
+        # Parse variables from the text
+        variables_list = [var.strip() for var in variables_text.split('\n') if var.strip()]
+        
+        matriz_operacionalizacion = []
+        
+        if enfoque.lower() == 'cuantitativo':
+            # Generate for each variable mentioned
+            for i, variable in enumerate(variables_list[:3]):  # Limit to 3 variables
+                if 'independiente' in variable.lower():
+                    var_type = 'Variable Independiente'
+                elif 'dependiente' in variable.lower():
+                    var_type = 'Variable Dependiente'
+                else:
+                    var_type = f'Variable {i+1}'
+                
+                matriz_operacionalizacion.append({
+                    'variable': var_type,
+                    'definicion_conceptual': f'Definición teórica de {variable.lower()}',
+                    'definicion_operacional': f'Cómo se medirá {variable.lower()} en el estudio',
+                    'dimensiones': [f'Dimensión {chr(65+i*2)}', f'Dimensión {chr(65+i*2+1)}'],
+                    'indicadores': [f'Indicador {chr(65+i*2)}.1', f'Indicador {chr(65+i*2)}.2', 
+                                  f'Indicador {chr(65+i*2+1)}.1', f'Indicador {chr(65+i*2+1)}.2'],
+                    'items': [f'Ítem {i*4+1}', f'Ítem {i*4+2}', f'Ítem {i*4+3}', f'Ítem {i*4+4}'],
+                    'escala': 'Escala de Likert (1-5)' if i == 0 else 'Escala numérica',
+                    'instrumento': 'Cuestionario' if i == 0 else 'Test/Prueba'
+                })
+        else:
+            # Qualitative approach
+            categorias_base = ['Experiencias', 'Percepciones', 'Comportamientos']
+            
+            for i, categoria in enumerate(categorias_base[:3]):
+                matriz_operacionalizacion.append({
+                    'categoria': f'Categoría: {categoria}',
+                    'definicion_conceptual': f'Análisis de {categoria.lower()} relacionadas con la investigación',
+                    'subcategorias': [f'{categoria[:-1]} directa', f'{categoria[:-1]} indirecta'],
+                    'indicadores': [f'Manifestación {i*2+1}', f'Manifestación {i*2+2}'],
+                    'preguntas_guia': [f'¿Cómo describes {categoria.lower()}?', f'¿Qué factores influyen en {categoria.lower()}?'],
+                    'tecnica': 'Entrevista a profundidad' if i == 0 else 'Grupo focal',
+                    'instrumento': 'Guía de entrevista' if i == 0 else 'Guía de discusión'
+                })
+        
+        return matriz_operacionalizacion
+    
     def _generate_title_justification(self, titulo, enfoque, diseno, numero):
         """Generate justification for each title"""
         
@@ -175,3 +283,111 @@ class ThesisGenerator:
             })
         
         return titulos
+    
+    def generate_operationalization_matrix(self, session_data):
+        """Generate operationalization matrix from step-by-step data"""
+        
+        tema = session_data.get('tema_delimitado', session_data.get('tema_general', ''))
+        enfoque = session_data.get('enfoque', '')
+        diseno = session_data.get('diseno', '')
+        
+        # Create basic operationalization structure
+        matriz_operacionalizacion = []
+        
+        if enfoque.lower() == 'cuantitativo':
+            # Quantitative approach - focus on variables
+            matriz_operacionalizacion = [
+                {
+                    'variable': 'Variable Independiente',
+                    'definicion_conceptual': f'Concepto teórico relacionado con {tema.lower()}',
+                    'definicion_operacional': 'Definir cómo se medirá esta variable',
+                    'dimensiones': ['Dimensión 1', 'Dimensión 2'],
+                    'indicadores': ['Indicador 1.1', 'Indicador 1.2', 'Indicador 2.1', 'Indicador 2.2'],
+                    'items': ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                    'escala': 'Escala de Likert (1-5)',
+                    'instrumento': 'Cuestionario'
+                },
+                {
+                    'variable': 'Variable Dependiente',
+                    'definicion_conceptual': f'Resultado esperado en {tema.lower()}',
+                    'definicion_operacional': 'Definir cómo se medirá el resultado',
+                    'dimensiones': ['Dimensión A', 'Dimensión B'],
+                    'indicadores': ['Indicador A.1', 'Indicador A.2', 'Indicador B.1', 'Indicador B.2'],
+                    'items': ['Item A', 'Item B', 'Item C', 'Item D'],
+                    'escala': 'Escala numérica',
+                    'instrumento': 'Prueba/Test'
+                }
+            ]
+        else:
+            # Qualitative or mixed approach - focus on categories
+            matriz_operacionalizacion = [
+                {
+                    'categoria': 'Categoría Principal 1',
+                    'definicion_conceptual': f'Primera categoría de análisis para {tema.lower()}',
+                    'subcategorias': ['Subcategoría 1.1', 'Subcategoría 1.2'],
+                    'indicadores': ['Conducta observable 1', 'Conducta observable 2'],
+                    'preguntas_guia': ['¿Pregunta 1?', '¿Pregunta 2?'],
+                    'tecnica': 'Entrevista semiestructurada',
+                    'instrumento': 'Guía de entrevista'
+                },
+                {
+                    'categoria': 'Categoría Principal 2',
+                    'definicion_conceptual': f'Segunda categoría de análisis para {tema.lower()}',
+                    'subcategorias': ['Subcategoría 2.1', 'Subcategoría 2.2'],
+                    'indicadores': ['Conducta observable 3', 'Conducta observable 4'],
+                    'preguntas_guia': ['¿Pregunta 3?', '¿Pregunta 4?'],
+                    'tecnica': 'Observación participante',
+                    'instrumento': 'Ficha de observación'
+                }
+            ]
+        
+        return matriz_operacionalizacion
+    
+    def generate_operationalization_matrix_from_existing(self, matriz_existente):
+        """Generate operationalization matrix from existing consistency matrix"""
+        
+        variables_text = matriz_existente.get('variables', '')
+        enfoque = matriz_existente.get('metodologia_enfoque', '')
+        
+        # Parse variables from the text
+        variables_list = [var.strip() for var in variables_text.split('\n') if var.strip()]
+        
+        matriz_operacionalizacion = []
+        
+        if enfoque.lower() == 'cuantitativo':
+            # Generate for each variable mentioned
+            for i, variable in enumerate(variables_list[:3]):  # Limit to 3 variables
+                if 'independiente' in variable.lower():
+                    var_type = 'Variable Independiente'
+                elif 'dependiente' in variable.lower():
+                    var_type = 'Variable Dependiente'
+                else:
+                    var_type = f'Variable {i+1}'
+                
+                matriz_operacionalizacion.append({
+                    'variable': var_type,
+                    'definicion_conceptual': f'Definición teórica de {variable.lower()}',
+                    'definicion_operacional': f'Cómo se medirá {variable.lower()} en el estudio',
+                    'dimensiones': [f'Dimensión {chr(65+i*2)}', f'Dimensión {chr(65+i*2+1)}'],
+                    'indicadores': [f'Indicador {chr(65+i*2)}.1', f'Indicador {chr(65+i*2)}.2', 
+                                  f'Indicador {chr(65+i*2+1)}.1', f'Indicador {chr(65+i*2+1)}.2'],
+                    'items': [f'Ítem {i*4+1}', f'Ítem {i*4+2}', f'Ítem {i*4+3}', f'Ítem {i*4+4}'],
+                    'escala': 'Escala de Likert (1-5)' if i == 0 else 'Escala numérica',
+                    'instrumento': 'Cuestionario' if i == 0 else 'Test/Prueba'
+                })
+        else:
+            # Qualitative approach
+            categorias_base = ['Experiencias', 'Percepciones', 'Comportamientos']
+            
+            for i, categoria in enumerate(categorias_base[:3]):
+                matriz_operacionalizacion.append({
+                    'categoria': f'Categoría: {categoria}',
+                    'definicion_conceptual': f'Análisis de {categoria.lower()} relacionadas con la investigación',
+                    'subcategorias': [f'{categoria[:-1]} directa', f'{categoria[:-1]} indirecta'],
+                    'indicadores': [f'Manifestación {i*2+1}', f'Manifestación {i*2+2}'],
+                    'preguntas_guia': [f'¿Cómo describes {categoria.lower()}?', f'¿Qué factores influyen en {categoria.lower()}?'],
+                    'tecnica': 'Entrevista a profundidad' if i == 0 else 'Grupo focal',
+                    'instrumento': 'Guía de entrevista' if i == 0 else 'Guía de discusión'
+                })
+        
+        return matriz_operacionalizacion

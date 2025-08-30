@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+
+{% block title %}Matriz de Operacionalización - TesisPlan Asistente{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="text-center mb-4">
+            <h2>
+                <i data-feather="layers" class="me-2 text-success"></i>
+                Matriz de Operacionalización Generada
+            </h2>
+            <p class="text-muted">
+                Basada en tu matriz de consistencia, aquí tienes la operacionalización de variables/categorías
+            </p>
+        </div>
+
+        <!-- Operationalization Matrix Section -->
+        {% if matriz_operacionalizacion %}
+        <div class="card border-0 bg-dark mb-4">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i data-feather="grid" class="me-2"></i>
+                    📋 Matriz de Operacionalización
+                </h4>
+                <p class="text-muted mb-0">
+                    Esta matriz te ayudará a desarrollar tus instrumentos de recolección de datos
+                </p>
+            </div>
+            <div class="card-body">
+                {% for item in matriz_operacionalizacion %}
+                <div class="mb-5 p-4 border rounded">
+                    {% if item.variable %}
+                    <!-- Quantitative Variable -->
+                    <h5 class="text-primary mb-3">
+                        <i data-feather="bar-chart-2" class="me-2"></i>
+                        {{ item.variable }}
+                    </h5>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-dark table-striped">
+                            <tbody>
+                                <tr>
+                                    <td width="25%"><strong>Definición Conceptual</strong></td>
+                                    <td>{{ item.definicion_conceptual }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Definición Operacional</strong></td>
+                                    <td>{{ item.definicion_operacional }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Dimensiones</strong></td>
+                                    <td>
+                                        <ul class="mb-0">
+                                            {% for dimension in item.dimensiones %}
+                                            <li>{{ dimension }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Indicadores</strong></td>
+                                    <td>
+                                        <ul class="mb-0">
+                                            {% for indicador in item.indicadores %}
+                                            <li>{{ indicador }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ítems</strong></td>
+                                    <td>
+                                        <ul class="mb-0">
+                                            {% for item_text in item.items %}
+                                            <li>{{ item_text }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Escala de Medición</strong></td>
+                                    <td><span class="badge bg-info">{{ item.escala }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Instrumento</strong></td>
+                                    <td><span class="badge bg-success">{{ item.instrumento }}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    {% else %}
+                    <!-- Qualitative Category -->
+                    <h5 class="text-warning mb-3">
+                        <i data-feather="message-circle" class="me-2"></i>
+                        {{ item.categoria }}
+                    </h5>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-dark table-striped">
+                            <tbody>
+                                <tr>
+                                    <td width="25%"><strong>Definición Conceptual</strong></td>
+                                    <td>{{ item.definicion_conceptual }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Subcategorías</strong></td>
+                                    <td>
+                                        <ul class="mb-0">
+                                            {% for subcategoria in item.subcategorias %}
+                                            <li>{{ subcategoria }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Indicadores</strong></td>
+                                    <td>
+                                        <ul class="mb-0">
+                                            {% for indicador in item.indicadores %}
+                                            <li>{{ indicador }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Preguntas Guía</strong></td>
+                                    <td>
+                                        <ul class="mb-0">
+                                            {% for pregunta in item.preguntas_guia %}
+                                            <li>{{ pregunta }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Técnica</strong></td>
+                                    <td><span class="badge bg-info">{{ item.tecnica }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Instrumento</strong></td>
+                                    <td><span class="badge bg-success">{{ item.instrumento }}</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Summary Information -->
+        <div class="card border-0 bg-dark mb-4">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i data-feather="info" class="me-2"></i>
+                    Información de tu Investigación
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><strong>Tipo de Tesis:</strong></h6>
+                        <p class="text-muted">{{ session_data.get('tipo_tesis', 'No especificado') }}</p>
+                        
+                        {% if session_data.get('enfoque') %}
+                        <h6><strong>Enfoque Metodológico:</strong></h6>
+                        <p class="text-muted">{{ session_data.get('enfoque') }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        {% if session_data.get('diseno') %}
+                        <h6><strong>Diseño de Investigación:</strong></h6>
+                        <p class="text-muted">{{ session_data.get('diseno') }}</p>
+                        {% endif %}
+                        
+                        {% if session_data.get('tema_delimitado') %}
+                        <h6><strong>Tema Delimitado:</strong></h6>
+                        <p class="text-muted">{{ session_data.get('tema_delimitado')[:150] }}{% if session_data.get('tema_delimitado')|length > 150 %}...{% endif %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions Section -->
+        <div class="card border-0 bg-dark mb-4">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i data-feather="compass" class="me-2"></i>
+                    Cómo usar esta matriz
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-primary">📋 Para Estudios Cuantitativos:</h6>
+                        <ul class="text-muted">
+                            <li>Usa las dimensiones e indicadores para crear preguntas específicas</li>
+                            <li>Desarrolla ítems para tu cuestionario basados en los indicadores</li>
+                            <li>Aplica la escala de medición sugerida</li>
+                            <li>Valida tu instrumento antes de la aplicación final</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="text-warning">💬 Para Estudios Cualitativos:</h6>
+                        <ul class="text-muted">
+                            <li>Utiliza las preguntas guía para diseñar tus instrumentos</li>
+                            <li>Las subcategorías te ayudarán en el análisis posterior</li>
+                            <li>Adapta las técnicas e instrumentos a tu contexto</li>
+                            <li>Considera la triangulación de datos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions Section -->
+        <div class="card border-0 bg-dark mb-4">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i data-feather="download" class="me-2"></i>
+                    Próximos Pasos
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <a href="{{ url_for('results') }}" class="btn btn-primary w-100">
+                            <i data-feather="arrow-left" class="me-2"></i>
+                            Volver a Resultados
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ url_for('download_results') }}" class="btn btn-success w-100">
+                            <i data-feather="download" class="me-2"></i>
+                            Descargar Todo
+                        </a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ url_for('reset') }}" class="btn btn-outline-secondary w-100">
+                            <i data-feather="refresh-cw" class="me-2"></i>
+                            Nueva Investigación
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="mt-4 p-3 bg-success rounded">
+                    <h6 class="mb-2">
+                        <i data-feather="check-circle" class="me-2"></i>
+                        ¡Felicitaciones!
+                    </h6>
+                    <p class="mb-0 small">
+                        Has completado el proceso completo de planificación de tu tesis. Ahora tienes tanto 
+                        la matriz de consistencia como la matriz de operacionalización. Puedes proceder a 
+                        desarrollar tus instrumentos de recolección de datos y ejecutar tu investigación.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

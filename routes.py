@@ -161,6 +161,26 @@ def download_results():
     flash('Funcionalidad de descarga en desarrollo', 'info')
     return redirect(url_for('results'))
 
+@app.route('/matriz_operacionalizacion')
+def matriz_operacionalizacion():
+    """Generate and display the operationalization matrix"""
+    if session.get('step') != 'complete':
+        return redirect(url_for('index'))
+    
+    generator = ThesisGenerator()
+    
+    # Generate operationalization matrix based on available data
+    if session.get('matriz_existente'):
+        # Use existing matrix data
+        matriz_operacionalizacion = generator.generate_operationalization_matrix_from_existing(session.get('matriz_existente'))
+    else:
+        # Use session data from step-by-step process
+        matriz_operacionalizacion = generator.generate_operationalization_matrix(session)
+    
+    return render_template('matriz_operacionalizacion.html', 
+                         matriz_operacionalizacion=matriz_operacionalizacion,
+                         session_data=session)
+
 @app.route('/reset')
 def reset():
     """Reset the session and start over"""

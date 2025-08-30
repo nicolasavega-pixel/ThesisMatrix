@@ -149,13 +149,19 @@
             </div>
             <div class="card-body">
                 <div class="row g-3">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <a href="{{ url_for('matriz_operacionalizacion') }}" class="btn btn-success w-100">
+                            <i data-feather="arrow-right" class="me-2"></i>
+                            Matriz de Operacionalización
+                        </a>
+                    </div>
+                    <div class="col-md-4">
                         <a href="{{ url_for('download_results') }}" class="btn btn-primary w-100">
                             <i data-feather="download" class="me-2"></i>
                             Descargar Resultados
                         </a>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <a href="{{ url_for('reset') }}" class="btn btn-outline-secondary w-100">
                             <i data-feather="refresh-cw" class="me-2"></i>
                             Nueva Investigación
