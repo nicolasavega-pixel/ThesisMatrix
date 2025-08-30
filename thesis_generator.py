@@ -120,27 +120,29 @@ class ThesisGenerator:
         matriz_operacionalizacion = []
         
         if enfoque.lower() == 'cuantitativo':
-            # Quantitative approach - focus on variables
+            # Generate intelligent variable suggestions based on topic
+            variables_sugeridas = self._generate_variable_suggestions(tema.lower())
+            
             matriz_operacionalizacion = [
                 {
-                    'variable': 'Variable Independiente',
-                    'definicion_conceptual': f'Concepto teórico relacionado con {tema.lower()}',
-                    'definicion_operacional': 'Definir cómo se medirá esta variable',
-                    'dimensiones': ['Dimensión 1', 'Dimensión 2'],
-                    'indicadores': ['Indicador 1.1', 'Indicador 1.2', 'Indicador 2.1', 'Indicador 2.2'],
-                    'elementos_items': ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                    'variable': f'Variable Independiente: {variables_sugeridas["independiente"]["nombre"]}',
+                    'definicion_conceptual': variables_sugeridas["independiente"]["definicion_conceptual"],
+                    'definicion_operacional': variables_sugeridas["independiente"]["definicion_operacional"],
+                    'dimensiones': variables_sugeridas["independiente"]["dimensiones"],
+                    'indicadores': variables_sugeridas["independiente"]["indicadores"],
+                    'elementos_items': variables_sugeridas["independiente"]["items"],
                     'escala': 'Escala de Likert (1-5)',
                     'instrumento': 'Cuestionario'
                 },
                 {
-                    'variable': 'Variable Dependiente',
-                    'definicion_conceptual': f'Resultado esperado en {tema.lower()}',
-                    'definicion_operacional': 'Definir cómo se medirá el resultado',
-                    'dimensiones': ['Dimensión A', 'Dimensión B'],
-                    'indicadores': ['Indicador A.1', 'Indicador A.2', 'Indicador B.1', 'Indicador B.2'],
-                    'elementos_items': ['Item A', 'Item B', 'Item C', 'Item D'],
-                    'escala': 'Escala numérica',
-                    'instrumento': 'Prueba/Test'
+                    'variable': f'Variable Dependiente: {variables_sugeridas["dependiente"]["nombre"]}',
+                    'definicion_conceptual': variables_sugeridas["dependiente"]["definicion_conceptual"],
+                    'definicion_operacional': variables_sugeridas["dependiente"]["definicion_operacional"],
+                    'dimensiones': variables_sugeridas["dependiente"]["dimensiones"],
+                    'indicadores': variables_sugeridas["dependiente"]["indicadores"],
+                    'elementos_items': variables_sugeridas["dependiente"]["items"],
+                    'escala': 'Escala numérica (0-20)',
+                    'instrumento': 'Test/Evaluación'
                 }
             ]
         else:
@@ -167,6 +169,110 @@ class ThesisGenerator:
             ]
         
         return matriz_operacionalizacion
+    
+    def _generate_variable_suggestions(self, tema):
+        """Generate intelligent variable suggestions based on topic"""
+        
+        # Common topic patterns and their suggested variables
+        variable_patterns = {
+            'tecnolog': {
+                'independiente': {
+                    'nombre': 'Uso de tecnologías digitales',
+                    'definicion_conceptual': 'Nivel de utilización de herramientas tecnológicas digitales en el proceso estudiado',
+                    'definicion_operacional': 'Frecuencia y tipos de tecnologías utilizadas medidas a través de cuestionario',
+                    'dimensiones': ['Frecuencia de uso', 'Tipos de tecnología'],
+                    'indicadores': ['Horas diarias de uso', 'Número de aplicaciones utilizadas', 'Nivel de competencia digital'],
+                    'items': ['¿Con qué frecuencia utiliza dispositivos digitales?', '¿Qué tipos de software maneja?', '¿Cuál es su nivel de competencia tecnológica?']
+                },
+                'dependiente': {
+                    'nombre': 'Rendimiento/Productividad',
+                    'definicion_conceptual': 'Nivel de eficacia y eficiencia en el desempeño de actividades',
+                    'definicion_operacional': 'Puntaje obtenido en indicadores de desempeño medidos cuantitativamente',
+                    'dimensiones': ['Eficacia', 'Eficiencia'],
+                    'indicadores': ['Tareas completadas', 'Tiempo empleado', 'Calidad de resultados'],
+                    'items': ['Número de tareas completadas por día', 'Tiempo promedio por tarea', 'Calificación de calidad del trabajo']
+                }
+            },
+            'educaci': {
+                'independiente': {
+                    'nombre': 'Método de enseñanza',
+                    'definicion_conceptual': 'Estrategia pedagógica utilizada para facilitar el aprendizaje',
+                    'definicion_operacional': 'Tipo de metodología aplicada clasificada según enfoque pedagógico',
+                    'dimensiones': ['Tipo de metodología', 'Frecuencia de aplicación'],
+                    'indicadores': ['Método tradicional vs. activo', 'Horas de aplicación semanal', 'Recursos utilizados'],
+                    'items': ['¿Qué metodología de enseñanza utiliza principalmente?', '¿Con qué frecuencia aplica métodos activos?', '¿Qué recursos pedagógicos emplea?']
+                },
+                'dependiente': {
+                    'nombre': 'Rendimiento académico',
+                    'definicion_conceptual': 'Nivel de logro de los objetivos educativos por parte del estudiante',
+                    'definicion_operacional': 'Calificaciones numéricas obtenidas en evaluaciones académicas',
+                    'dimensiones': ['Notas cuantitativas', 'Competencias desarrolladas'],
+                    'indicadores': ['Promedio de calificaciones', 'Número de competencias logradas', 'Nivel de comprensión'],
+                    'items': ['Calificación promedio del período', 'Número de objetivos alcanzados', 'Nivel de dominio de competencias']
+                }
+            },
+            'salud': {
+                'independiente': {
+                    'nombre': 'Programa de intervención',
+                    'definicion_conceptual': 'Conjunto de actividades estructuradas dirigidas a mejorar la condición de salud',
+                    'definicion_operacional': 'Tipo y duración del programa aplicado según protocolo establecido',
+                    'dimensiones': ['Tipo de intervención', 'Duración del programa'],
+                    'indicadores': ['Modalidad de intervención', 'Número de sesiones', 'Tiempo por sesión'],
+                    'items': ['¿Qué tipo de programa siguió?', '¿Cuántas sesiones completó?', '¿Cuál fue la duración promedio por sesión?']
+                },
+                'dependiente': {
+                    'nombre': 'Estado de salud',
+                    'definicion_conceptual': 'Condición física, mental y social de bienestar del individuo',
+                    'definicion_operacional': 'Puntajes obtenidos en escalas estandarizadas de evaluación de salud',
+                    'dimensiones': ['Salud física', 'Salud mental'],
+                    'indicadores': ['Índice de masa corporal', 'Niveles de estrés', 'Calidad de vida percibida'],
+                    'items': ['Medición de peso y talla', 'Escala de estrés percibido', 'Cuestionario de calidad de vida']
+                }
+            },
+            'empres': {
+                'independiente': {
+                    'nombre': 'Estrategia organizacional',
+                    'definicion_conceptual': 'Plan de acción implementado para alcanzar objetivos organizacionales',
+                    'definicion_operacional': 'Tipo de estrategia aplicada clasificada según modelo teórico',
+                    'dimensiones': ['Tipo de estrategia', 'Nivel de implementación'],
+                    'indicadores': ['Modalidad estratégica', 'Recursos asignados', 'Tiempo de implementación'],
+                    'items': ['¿Qué tipo de estrategia implementó?', '¿Qué recursos destinó a la estrategia?', '¿Cuánto tiempo dedicó a la implementación?']
+                },
+                'dependiente': {
+                    'nombre': 'Desempeño organizacional',
+                    'definicion_conceptual': 'Nivel de logro de los objetivos y metas organizacionales',
+                    'definicion_operacional': 'Indicadores cuantitativos de rendimiento empresarial',
+                    'dimensiones': ['Rentabilidad', 'Productividad'],
+                    'indicadores': ['Retorno sobre inversión', 'Productividad laboral', 'Satisfacción del cliente'],
+                    'items': ['Porcentaje de ROI', 'Unidades producidas por empleado', 'Índice de satisfacción del cliente']
+                }
+            }
+        }
+        
+        # Find matching pattern
+        for pattern, variables in variable_patterns.items():
+            if pattern in tema:
+                return variables
+        
+        # Default variables if no pattern matches
+        return {
+            'independiente': {
+                'nombre': 'Factor de estudio principal',
+                'definicion_conceptual': f'Principal elemento que se manipula o analiza en {tema}',
+                'definicion_operacional': 'Medición operativa del factor principal según instrumentos establecidos',
+                'dimensiones': ['Dimensión primaria', 'Dimensión secundaria'],
+                'indicadores': ['Indicador principal 1', 'Indicador principal 2', 'Indicador secundario 1'],
+                'items': ['¿Cuál es el nivel del factor principal?', '¿Con qué frecuencia se presenta?', '¿Qué intensidad tiene?']
+            },
+            'dependiente': {
+                'nombre': 'Resultado esperado',
+                'definicion_conceptual': f'Efecto o resultado que se busca medir en {tema}',
+                'definicion_operacional': 'Puntuación obtenida en la medición del resultado principal',
+                'dimensiones': ['Efectividad', 'Impacto'],
+                'indicadores': ['Nivel de efectividad', 'Magnitud del impacto', 'Duración del efecto'],
+                'items': ['Puntaje de efectividad obtenido', 'Nivel de impacto medido', 'Duración del efecto observado']
+            }
+        }
     
     def generate_operationalization_matrix_from_existing(self, matriz_existente):
         """Generate operationalization matrix from existing consistency matrix"""
@@ -217,43 +323,67 @@ class ThesisGenerator:
         
         return matriz_operacionalizacion
     
-    def _generate_title_justification(self, titulo, enfoque, diseno, numero):
-        """Generate justification for each title"""
+    def generate_consistency_matrix_from_existing(self, matriz_data):
+        """Generate consistency matrix from existing matrix data"""
         
-        justificaciones = {
-            1: f"Este título es directo y específico, claramente indica el {enfoque} como enfoque metodológico y el diseño {diseno}. Es académicamente sólido y fácil de entender.",
-            2: f"Versión más formal que enfatiza el rigor metodológico. Apropiado para {enfoque} y permite flexibilidad en el desarrollo del diseño {diseno}.",
-            3: f"Título equilibrado que combina precisión académica con claridad. Ideal para investigaciones con enfoque {enfoque} y diseño {diseno}.",
-            4: f"Enfoque más descriptivo que resalta el alcance de la investigación. Especialmente adecuado para estudios {enfoque} con metodología {diseno}.",
-            5: f"Versión concisa pero completa que facilita la comprensión del tema. Apropiado para el enfoque {enfoque} seleccionado y el diseño {diseno}."
+        # Extract the main components
+        problema_general = matriz_data.get('problema_general', '')
+        objetivo_general = matriz_data.get('objetivo_general', '')
+        hipotesis_general = matriz_data.get('hipotesis', '')
+        variables_text = matriz_data.get('variables', '')
+        
+        metodologia_enfoque = matriz_data.get('metodologia_enfoque', '')
+        metodologia_tipo = matriz_data.get('metodologia_tipo', '')
+        metodologia_poblacion = matriz_data.get('metodologia_poblacion', '')
+        metodologia_muestra = matriz_data.get('metodologia_muestra', '')
+        metodologia_tecnicas = matriz_data.get('metodologia_tecnicas', '')
+        metodologia_instrumentos = matriz_data.get('metodologia_instrumentos', '')
+        
+        # Parse variables from text into a list
+        variables_list = [var.strip() for var in variables_text.split('\n') if var.strip()]
+        
+        # Create the methodology dictionary
+        metodologia = {
+            'enfoque': metodologia_enfoque,
+            'tipo': metodologia_tipo,
+            'poblacion': metodologia_poblacion,
+            'muestra': metodologia_muestra,
+            'tecnicas': metodologia_tecnicas,
+            'instrumentos': metodologia_instrumentos
         }
         
-        return justificaciones.get(numero, "Título bien estructurado que refleja el enfoque y diseño metodológico seleccionado.")
+        matriz = {
+            'problema_general': problema_general,
+            'objetivo_general': objetivo_general,
+            'hipotesis_general': hipotesis_general,
+            'variables': variables_list,
+            'metodologia': metodologia,
+            'metodologia_enfoque': metodologia_enfoque  # Also store separately for easy access
+        }
+        
+        return matriz
     
-    def generate_titles_from_existing_matrix(self, matriz_existente):
-        """Generate 5 thesis title suggestions based on existing matrix"""
+    def generate_thesis_titles_from_existing(self, matriz_data):
+        """Generate thesis titles from existing consistency matrix"""
         
-        # Extract key information from the existing matrix
-        objetivo = matriz_existente.get('objetivo_general', '')
-        problema = matriz_existente.get('problema_general', '')
-        enfoque = matriz_existente.get('metodologia_enfoque', '')
-        tipo_diseno = matriz_existente.get('metodologia_tipo', '')
+        # Extract information from the existing matrix
+        objetivo = matriz_data.get('objetivo_general', '')
+        enfoque = matriz_data.get('metodologia_enfoque', '')
+        tipo_diseno = matriz_data.get('metodologia_tipo', '')
         
-        # Try to extract the main topic from objective or problem
-        tema_principal = ""
-        if objetivo:
-            # Extract topic from objective (usually after the action verb)
-            words = objetivo.split()
-            if len(words) > 2:
-                tema_principal = ' '.join(words[1:])  # Skip the action verb
-        elif problema:
-            # Extract from problem statement
-            problema_clean = problema.replace('¿', '').replace('?', '')
-            words = problema_clean.split()
-            if len(words) > 5:
-                tema_principal = ' '.join(words[2:])  # Skip common question words
-        
-        if not tema_principal:
+        # Try to extract the main topic from the objective
+        tema_principal = objetivo
+        if 'analizar' in objetivo.lower():
+            tema_principal = objetivo.lower().replace('analizar', '').strip()
+        elif 'estudiar' in objetivo.lower():
+            tema_principal = objetivo.lower().replace('estudiar', '').strip()
+        elif 'evaluar' in objetivo.lower():
+            tema_principal = objetivo.lower().replace('evaluar', '').strip()
+        elif 'determinar' in objetivo.lower():
+            tema_principal = objetivo.lower().replace('determinar', '').strip()
+        elif 'describir' in objetivo.lower():
+            tema_principal = objetivo.lower().replace('describir', '').strip()
+        else:
             tema_principal = "la investigación planteada"
         
         # Generate title variations based on the methodology
@@ -284,110 +414,15 @@ class ThesisGenerator:
         
         return titulos
     
-    def generate_operationalization_matrix(self, session_data):
-        """Generate operationalization matrix from step-by-step data"""
+    def _generate_title_justification(self, titulo, enfoque, diseno, numero):
+        """Generate justification for a specific title"""
         
-        tema = session_data.get('tema_delimitado', session_data.get('tema_general', ''))
-        enfoque = session_data.get('enfoque', '')
-        diseno = session_data.get('diseno', '')
+        justifications = [
+            f"Este título es directo y específico, reflejando claramente el {enfoque.lower()} metodológico y el {diseno.lower()} de investigación propuesto.",
+            f"La formulación de este título permite delimitar el alcance del estudio y es coherente con el {diseno.lower()} planteado en tu metodología.",
+            f"Este título mantiene un equilibrio entre precisión científica y claridad, adecuado para un {enfoque.lower()} de investigación.",
+            f"La estructura de este título facilita la comprensión del propósito del estudio y se alinea con los estándares académicos del {diseno.lower()}.",
+            f"Este título es conciso pero descriptivo, cumpliendo con los requisitos metodológicos de un {enfoque.lower()} de investigación."
+        ]
         
-        # Create basic operationalization structure
-        matriz_operacionalizacion = []
-        
-        if enfoque.lower() == 'cuantitativo':
-            # Quantitative approach - focus on variables
-            matriz_operacionalizacion = [
-                {
-                    'variable': 'Variable Independiente',
-                    'definicion_conceptual': f'Concepto teórico relacionado con {tema.lower()}',
-                    'definicion_operacional': 'Definir cómo se medirá esta variable',
-                    'dimensiones': ['Dimensión 1', 'Dimensión 2'],
-                    'indicadores': ['Indicador 1.1', 'Indicador 1.2', 'Indicador 2.1', 'Indicador 2.2'],
-                    'elementos_items': ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
-                    'escala': 'Escala de Likert (1-5)',
-                    'instrumento': 'Cuestionario'
-                },
-                {
-                    'variable': 'Variable Dependiente',
-                    'definicion_conceptual': f'Resultado esperado en {tema.lower()}',
-                    'definicion_operacional': 'Definir cómo se medirá el resultado',
-                    'dimensiones': ['Dimensión A', 'Dimensión B'],
-                    'indicadores': ['Indicador A.1', 'Indicador A.2', 'Indicador B.1', 'Indicador B.2'],
-                    'elementos_items': ['Item A', 'Item B', 'Item C', 'Item D'],
-                    'escala': 'Escala numérica',
-                    'instrumento': 'Prueba/Test'
-                }
-            ]
-        else:
-            # Qualitative or mixed approach - focus on categories
-            matriz_operacionalizacion = [
-                {
-                    'categoria': 'Categoría Principal 1',
-                    'definicion_conceptual': f'Primera categoría de análisis para {tema.lower()}',
-                    'subcategorias': ['Subcategoría 1.1', 'Subcategoría 1.2'],
-                    'indicadores': ['Conducta observable 1', 'Conducta observable 2'],
-                    'preguntas_guia': ['¿Pregunta 1?', '¿Pregunta 2?'],
-                    'tecnica': 'Entrevista semiestructurada',
-                    'instrumento': 'Guía de entrevista'
-                },
-                {
-                    'categoria': 'Categoría Principal 2',
-                    'definicion_conceptual': f'Segunda categoría de análisis para {tema.lower()}',
-                    'subcategorias': ['Subcategoría 2.1', 'Subcategoría 2.2'],
-                    'indicadores': ['Conducta observable 3', 'Conducta observable 4'],
-                    'preguntas_guia': ['¿Pregunta 3?', '¿Pregunta 4?'],
-                    'tecnica': 'Observación participante',
-                    'instrumento': 'Ficha de observación'
-                }
-            ]
-        
-        return matriz_operacionalizacion
-    
-    def generate_operationalization_matrix_from_existing(self, matriz_existente):
-        """Generate operationalization matrix from existing consistency matrix"""
-        
-        variables_text = matriz_existente.get('variables', '')
-        enfoque = matriz_existente.get('metodologia_enfoque', '')
-        
-        # Parse variables from the text
-        variables_list = [var.strip() for var in variables_text.split('\n') if var.strip()]
-        
-        matriz_operacionalizacion = []
-        
-        if enfoque.lower() == 'cuantitativo':
-            # Generate for each variable mentioned
-            for i, variable in enumerate(variables_list[:3]):  # Limit to 3 variables
-                if 'independiente' in variable.lower():
-                    var_type = 'Variable Independiente'
-                elif 'dependiente' in variable.lower():
-                    var_type = 'Variable Dependiente'
-                else:
-                    var_type = f'Variable {i+1}'
-                
-                matriz_operacionalizacion.append({
-                    'variable': var_type,
-                    'definicion_conceptual': f'Definición teórica de {variable.lower()}',
-                    'definicion_operacional': f'Cómo se medirá {variable.lower()} en el estudio',
-                    'dimensiones': [f'Dimensión {chr(65+i*2)}', f'Dimensión {chr(65+i*2+1)}'],
-                    'indicadores': [f'Indicador {chr(65+i*2)}.1', f'Indicador {chr(65+i*2)}.2', 
-                                  f'Indicador {chr(65+i*2+1)}.1', f'Indicador {chr(65+i*2+1)}.2'],
-                    'elementos_items': [f'Ítem {i*4+1}', f'Ítem {i*4+2}', f'Ítem {i*4+3}', f'Ítem {i*4+4}'],
-                    'escala': 'Escala de Likert (1-5)' if i == 0 else 'Escala numérica',
-                    'instrumento': 'Cuestionario' if i == 0 else 'Test/Prueba'
-                })
-        else:
-            # Qualitative approach
-            categorias_base = ['Experiencias', 'Percepciones', 'Comportamientos']
-            
-            for i, categoria in enumerate(categorias_base[:3]):
-                matriz_operacionalizacion.append({
-                    'categoria': f'Categoría: {categoria}',
-                    'definicion_conceptual': f'Análisis de {categoria.lower()} relacionadas con la investigación',
-                    'subcategorias': [f'{categoria[:-1]} directa', f'{categoria[:-1]} indirecta'],
-                    'indicadores': [f'Manifestación {i*2+1}', f'Manifestación {i*2+2}'],
-                    'preguntas_guia': [f'¿Cómo describes {categoria.lower()}?', f'¿Qué factores influyen en {categoria.lower()}?'],
-                    'tecnica': 'Entrevista a profundidad' if i == 0 else 'Grupo focal',
-                    'instrumento': 'Guía de entrevista' if i == 0 else 'Guía de discusión'
-                })
-        
-        return matriz_operacionalizacion
+        return justifications[numero - 1] if numero <= len(justifications) else justifications[0]
