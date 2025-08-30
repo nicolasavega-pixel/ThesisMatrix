@@ -1,0 +1,41 @@
+def empezar_tesis():
+    tiene_matriz = input("¿Quieres empezar desde cero o ya tienes la matriz de consistencia? (cero/ya tengo): ").strip().lower()
+    if tiene_matriz == "ya tengo":
+        print("Perfecto, pasemos a trabajar el título y la matriz de operacionalización.")
+        return
+
+    print("\nNecesito que me respondas estas preguntas para iniciar tu tesis:\n")
+
+    tema_general = input("1. ¿Cuál es tu idea de investigación sin relleno?: ")
+    tipo_tesis = input("2. ¿Qué tipo de tesis vas a elaborar? (Ejemplo: Pregrado/Maestría/Doctorado): ")
+    enfoque = input("3. ¿Cómo quieres investigar (Enfoque)? (Ejemplo: cuantitativo, cualitativo, mixto): ")
+    diseno = input("4. ¿Cómo realizarás tu investigación (Diseño metodológico)? (Ejemplo: descriptivo-propositivo, comparativo, experimental): ")
+
+    print("\n✅ Información recibida. Ahora vamos a delimitar el tema...\n")
+    tema_delimitado = input("¿Cuál es el tema delimitado que elegirás para la siguiente etapa?: ")
+
+    print("\nPerfecto. Ahora responde estas preguntas sobre el problema:\n")
+    lugar = input("¿Dónde has identificado esta problemática?: ")
+    publico = input("¿A quién vas a realizar el estudio?: ")
+    periodo = input("¿Cuál es el período donde analizarás el problema?: ")
+    problema_mod = input("¿Cuál es el problema de investigación elegido y modificado según resultado anterior?: ")
+
+    print("\n¿Quieres generar ahora la Matriz de consistencia? (sí/no)")
+    matriz = input().strip().lower()
+    if matriz == "sí":
+        print("📌 Aquí iría la generación automática de la matriz de consistencia basada en la información anterior.\n")
+
+    print("\n¿Quieres tener propuesta de títulos para la Tesis? (sí/no)")
+    titulos = input().strip().lower()
+    if titulos == "sí":
+        print("📌 Aquí iría la generación automática de 5 títulos de tesis con su justificación.\n")
+
+    print("🔝 Si eres ASESOR DE TESIS o estudiante de POSGRADO, capacítate en ITED con nuestro curso online🔝")
+    print("https://www.ited.education/curso-tesisai")
+    print("\nPara generar la Matriz de Consistencia con citas bibliográficas confiables, abre una cuenta gratuita en Consensus App:")
+    print("https://consensus.app")
+    print("\nRecuerda: luego puedes generar la matriz de operacionalización desde la información reunida.")
+
+if __name__ == "__main__":
+    print("🎓 Bienvenido a TesisPlan Asistente 🎓\n")
+    empezar_tesis()
