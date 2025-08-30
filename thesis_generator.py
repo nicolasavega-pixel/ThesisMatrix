@@ -128,7 +128,7 @@ class ThesisGenerator:
                     'definicion_operacional': 'Definir cómo se medirá esta variable',
                     'dimensiones': ['Dimensión 1', 'Dimensión 2'],
                     'indicadores': ['Indicador 1.1', 'Indicador 1.2', 'Indicador 2.1', 'Indicador 2.2'],
-                    'items': ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                    'elementos_items': ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
                     'escala': 'Escala de Likert (1-5)',
                     'instrumento': 'Cuestionario'
                 },
@@ -138,7 +138,7 @@ class ThesisGenerator:
                     'definicion_operacional': 'Definir cómo se medirá el resultado',
                     'dimensiones': ['Dimensión A', 'Dimensión B'],
                     'indicadores': ['Indicador A.1', 'Indicador A.2', 'Indicador B.1', 'Indicador B.2'],
-                    'items': ['Item A', 'Item B', 'Item C', 'Item D'],
+                    'elementos_items': ['Item A', 'Item B', 'Item C', 'Item D'],
                     'escala': 'Escala numérica',
                     'instrumento': 'Prueba/Test'
                 }
@@ -196,7 +196,7 @@ class ThesisGenerator:
                     'dimensiones': [f'Dimensión {chr(65+i*2)}', f'Dimensión {chr(65+i*2+1)}'],
                     'indicadores': [f'Indicador {chr(65+i*2)}.1', f'Indicador {chr(65+i*2)}.2', 
                                   f'Indicador {chr(65+i*2+1)}.1', f'Indicador {chr(65+i*2+1)}.2'],
-                    'items': [f'Ítem {i*4+1}', f'Ítem {i*4+2}', f'Ítem {i*4+3}', f'Ítem {i*4+4}'],
+                    'elementos_items': [f'Ítem {i*4+1}', f'Ítem {i*4+2}', f'Ítem {i*4+3}', f'Ítem {i*4+4}'],
                     'escala': 'Escala de Likert (1-5)' if i == 0 else 'Escala numérica',
                     'instrumento': 'Cuestionario' if i == 0 else 'Test/Prueba'
                 })
@@ -303,7 +303,7 @@ class ThesisGenerator:
                     'definicion_operacional': 'Definir cómo se medirá esta variable',
                     'dimensiones': ['Dimensión 1', 'Dimensión 2'],
                     'indicadores': ['Indicador 1.1', 'Indicador 1.2', 'Indicador 2.1', 'Indicador 2.2'],
-                    'items': ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
+                    'elementos_items': ['Item 1', 'Item 2', 'Item 3', 'Item 4'],
                     'escala': 'Escala de Likert (1-5)',
                     'instrumento': 'Cuestionario'
                 },
@@ -313,7 +313,7 @@ class ThesisGenerator:
                     'definicion_operacional': 'Definir cómo se medirá el resultado',
                     'dimensiones': ['Dimensión A', 'Dimensión B'],
                     'indicadores': ['Indicador A.1', 'Indicador A.2', 'Indicador B.1', 'Indicador B.2'],
-                    'items': ['Item A', 'Item B', 'Item C', 'Item D'],
+                    'elementos_items': ['Item A', 'Item B', 'Item C', 'Item D'],
                     'escala': 'Escala numérica',
                     'instrumento': 'Prueba/Test'
                 }
@@ -371,7 +371,7 @@ class ThesisGenerator:
                     'dimensiones': [f'Dimensión {chr(65+i*2)}', f'Dimensión {chr(65+i*2+1)}'],
                     'indicadores': [f'Indicador {chr(65+i*2)}.1', f'Indicador {chr(65+i*2)}.2', 
                                   f'Indicador {chr(65+i*2+1)}.1', f'Indicador {chr(65+i*2+1)}.2'],
-                    'items': [f'Ítem {i*4+1}', f'Ítem {i*4+2}', f'Ítem {i*4+3}', f'Ítem {i*4+4}'],
+                    'elementos_items': [f'Ítem {i*4+1}', f'Ítem {i*4+2}', f'Ítem {i*4+3}', f'Ítem {i*4+4}'],
                     'escala': 'Escala de Likert (1-5)' if i == 0 else 'Escala numérica',
                     'instrumento': 'Cuestionario' if i == 0 else 'Test/Prueba'
                 })
