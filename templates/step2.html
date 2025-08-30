@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Paso 2: Información Básica - TesisPlan Asistente{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 bg-dark">
+            <div class="card-header">
+                <h3 class="card-title mb-0">
+                    <i data-feather="file-text" class="me-2"></i>
+                    Paso 2: Información Básica de tu Tesis
+                </h3>
+                <p class="text-muted mb-0">
+                    Necesito que me respondas estas preguntas para iniciar tu tesis
+                </p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-4">
+                        <label for="tema_general" class="form-label">
+                            <strong>1. ¿Cuál es tu idea de investigación sin relleno?</strong>
+                        </label>
+                        <textarea class="form-control" id="tema_general" name="tema_general" rows="3" 
+                                placeholder="Describe tu idea de investigación de manera clara y concisa..." required></textarea>
+                        <div class="form-text">
+                            Evita palabras de relleno. Sé específico y directo sobre lo que quieres investigar.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="tipo_tesis" class="form-label">
+                            <strong>2. ¿Qué tipo de tesis vas a elaborar?</strong>
+                        </label>
+                        <select class="form-select" id="tipo_tesis" name="tipo_tesis" required>
+                            <option value="">Selecciona el tipo de tesis</option>
+                            <option value="Pregrado">Pregrado</option>
+                            <option value="Maestría">Maestría</option>
+                            <option value="Doctorado">Doctorado</option>
+                            <option value="Especialización">Especialización</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="enfoque" class="form-label">
+                            <strong>3. ¿Cómo quieres investigar (Enfoque)?</strong>
+                        </label>
+                        <select class="form-select" id="enfoque" name="enfoque" required>
+                            <option value="">Selecciona el enfoque metodológico</option>
+                            <option value="Cuantitativo">Cuantitativo</option>
+                            <option value="Cualitativo">Cualitativo</option>
+                            <option value="Mixto">Mixto</option>
+                        </select>
+                        <div class="form-text">
+                            <strong>Cuantitativo:</strong> Números, estadísticas, mediciones<br>
+                            <strong>Cualitativo:</strong> Percepciones, opiniones, experiencias<br>
+                            <strong>Mixto:</strong> Combinación de ambos enfoques
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="diseno" class="form-label">
+                            <strong>4. ¿Cómo realizarás tu investigación (Diseño metodológico)?</strong>
+                        </label>
+                        <select class="form-select" id="diseno" name="diseno" required>
+                            <option value="">Selecciona el diseño metodológico</option>
+                            <option value="Descriptivo">Descriptivo</option>
+                            <option value="Descriptivo-propositivo">Descriptivo-propositivo</option>
+                            <option value="Comparativo">Comparativo</option>
+                            <option value="Correlacional">Correlacional</option>
+                            <option value="Experimental">Experimental</option>
+                            <option value="Cuasi-experimental">Cuasi-experimental</option>
+                            <option value="Explicativo">Explicativo</option>
+                        </select>
+                        <div class="form-text">
+                            Selecciona el diseño que mejor se adapte a tus objetivos de investigación.
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('start') }}" class="btn btn-outline-secondary">
+                            <i data-feather="arrow-left" class="me-2"></i>
+                            Anterior
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            Continuar
+                            <i data-feather="arrow-right" class="ms-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

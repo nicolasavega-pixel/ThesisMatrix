@@ -1,0 +1,282 @@
+/* Custom CSS for TesisPlan Asistente */
+
+:root {
+    --primary-color: var(--bs-primary);
+    --secondary-color: var(--bs-secondary);
+    --success-color: var(--bs-success);
+    --info-color: var(--bs-info);
+    --warning-color: var(--bs-warning);
+    --danger-color: var(--bs-danger);
+}
+
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+/* Header Styles */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Progress Bar Enhancement */
+.progress {
+    background-color: var(--bs-gray-600);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(45deg, var(--bs-primary), var(--bs-info));
+    transition: width 0.6s ease;
+}
+
+/* Card Enhancements */
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    border-bottom: 2px solid var(--bs-border-color);
+    background: linear-gradient(135deg, var(--bs-dark), var(--bs-gray-800));
+}
+
+/* Form Enhancements */
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 2px solid var(--bs-border-color);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 0 0.2rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+.form-check-input:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+
+/* Button Enhancements */
+.btn {
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--bs-primary), var(--bs-info));
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, var(--bs-info), var(--bs-primary));
+    transform: translateY(-1px);
+}
+
+.btn-success {
+    background: linear-gradient(45deg, var(--bs-success), #20c997);
+    border: none;
+}
+
+.btn-success:hover {
+    background: linear-gradient(45deg, #20c997, var(--bs-success));
+    transform: translateY(-1px);
+}
+
+/* Alert Enhancements */
+.alert {
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alert-success {
+    background: linear-gradient(135deg, var(--bs-success), #20c997);
+    color: white;
+}
+
+.alert-info {
+    background: linear-gradient(135deg, var(--bs-info), var(--bs-primary));
+    color: white;
+}
+
+/* Table Enhancements */
+.table-dark {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.table-dark thead th {
+    background: linear-gradient(135deg, var(--bs-primary), var(--bs-info));
+    border: none;
+    font-weight: 600;
+}
+
+.table-dark tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Icon Enhancements */
+[data-feather] {
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in {
+    animation: slideIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .card-header h3 {
+        font-size: 1.3rem;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .d-flex.justify-content-between {
+        flex-direction: column;
+    }
+    
+    .d-flex.justify-content-between .btn:last-child {
+        margin-bottom: 0;
+    }
+}
+
+/* Footer Enhancements */
+footer {
+    background: linear-gradient(135deg, var(--bs-dark), var(--bs-gray-800));
+    border-top: 2px solid var(--bs-border-color);
+}
+
+footer a {
+    color: var(--bs-primary);
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: var(--bs-info);
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    overflow: hidden;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Form Validation Enhancements */
+.was-validated .form-control:invalid,
+.was-validated .form-select:invalid {
+    border-color: var(--bs-danger);
+    box-shadow: 0 0 0 0.2rem rgba(var(--bs-danger-rgb), 0.25);
+}
+
+.was-validated .form-control:valid,
+.was-validated .form-select:valid {
+    border-color: var(--bs-success);
+    box-shadow: 0 0 0 0.2rem rgba(var(--bs-success-rgb), 0.25);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bs-gray-800);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bs-primary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bs-info);
+}
+
+/* Print Styles */
+@media print {
+    .navbar, .btn, .alert, footer {
+        display: none !important;
+    }
+    
+    .card {
+        box-shadow: none;
+        border: 1px solid #000;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+}

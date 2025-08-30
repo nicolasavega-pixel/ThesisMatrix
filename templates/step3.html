@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Paso 3: Delimitación del Tema - TesisPlan Asistente{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="alert alert-success border-0">
+            <i data-feather="check-circle" class="me-2"></i>
+            <strong>✅ Información recibida.</strong> Ahora vamos a delimitar el tema...
+        </div>
+
+        <div class="card border-0 bg-dark">
+            <div class="card-header">
+                <h3 class="card-title mb-0">
+                    <i data-feather="map-pin" class="me-2"></i>
+                    Paso 3: Delimitación del Tema
+                </h3>
+                <p class="text-muted mb-0">
+                    Es momento de precisar y delimitar tu investigación
+                </p>
+            </div>
+            <div class="card-body">
+                <!-- Summary of previous information -->
+                <div class="mb-4 p-3 bg-secondary rounded">
+                    <h6 class="mb-3">
+                        <i data-feather="info" class="me-2"></i>
+                        Resumen de tu información:
+                    </h6>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="mb-2"><strong>Tipo de tesis:</strong> {{ session.tipo_tesis }}</p>
+                            <p class="mb-2"><strong>Enfoque:</strong> {{ session.enfoque }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="mb-2"><strong>Diseño:</strong> {{ session.diseno }}</p>
+                            <p class="mb-0"><strong>Idea inicial:</strong> {{ session.tema_general[:100] }}{% if session.tema_general|length > 100 %}...{% endif %}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form method="POST">
+                    <div class="mb-4">
+                        <label for="tema_delimitado" class="form-label">
+                            <strong>¿Cuál es el tema delimitado que elegirás para la siguiente etapa?</strong>
+                        </label>
+                        <textarea class="form-control" id="tema_delimitado" name="tema_delimitado" rows="4" 
+                                placeholder="Basándote en tu idea inicial, delimita específicamente qué aspecto vas a investigar..." required></textarea>
+                        <div class="form-text">
+                            <strong>Consejos para delimitar:</strong>
+                            <ul class="mt-2 small">
+                                <li>Especifica el ámbito geográfico (¿dónde?)</li>
+                                <li>Define el periodo temporal (¿cuándo?)</li>
+                                <li>Precisa la población objetivo (¿quiénes?)</li>
+                                <li>Concreta el aspecto específico a estudiar (¿qué exactamente?)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('step2') }}" class="btn btn-outline-secondary">
+                            <i data-feather="arrow-left" class="me-2"></i>
+                            Anterior
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            Continuar
+                            <i data-feather="arrow-right" class="ms-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

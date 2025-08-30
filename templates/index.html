@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Bienvenido - TesisPlan Asistente{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="text-center mb-5">
+            <div class="mb-4">
+                <i data-feather="graduation-cap" style="width: 64px; height: 64px;" class="text-primary"></i>
+            </div>
+            <h1 class="display-4 mb-3">🎓 Bienvenido a TesisPlan Asistente 🎓</h1>
+            <p class="lead text-muted">
+                Tu asistente inteligente para planificar y estructurar tu investigación académica de manera sistemática y profesional.
+            </p>
+        </div>
+
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 bg-dark">
+                    <div class="card-body text-center">
+                        <i data-feather="target" class="text-info mb-3" style="width: 48px; height: 48px;"></i>
+                        <h5 class="card-title">Metodología Guiada</h5>
+                        <p class="card-text text-muted">
+                            Te guiaremos paso a paso para definir tu enfoque metodológico y diseño de investigación.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 bg-dark">
+                    <div class="card-body text-center">
+                        <i data-feather="grid" class="text-success mb-3" style="width: 48px; height: 48px;"></i>
+                        <h5 class="card-title">Matriz de Consistencia</h5>
+                        <p class="card-text text-muted">
+                            Genera automáticamente tu matriz de consistencia basada en tu información de investigación.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 bg-dark">
+                    <div class="card-body text-center">
+                        <i data-feather="edit-3" class="text-warning mb-3" style="width: 48px; height: 48px;"></i>
+                        <h5 class="card-title">Títulos Sugeridos</h5>
+                        <p class="card-text text-muted">
+                            Recibe propuestas de títulos académicos con sus respectivas justificaciones.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center">
+            <a href="{{ url_for('start') }}" class="btn btn-primary btn-lg px-5">
+                <i data-feather="play" class="me-2"></i>
+                Comenzar Mi Tesis
+            </a>
+        </div>
+
+        <div class="mt-5 p-4 bg-secondary rounded">
+            <h5 class="mb-3">
+                <i data-feather="info" class="me-2"></i>
+                ¿Qué lograrás con esta herramienta?
+            </h5>
+            <ul class="list-unstyled">
+                <li class="mb-2">
+                    <i data-feather="check" class="text-success me-2"></i>
+                    Estructura metodológica clara y coherente
+                </li>
+                <li class="mb-2">
+                    <i data-feather="check" class="text-success me-2"></i>
+                    Matriz de consistencia profesional
+                </li>
+                <li class="mb-2">
+                    <i data-feather="check" class="text-success me-2"></i>
+                    Propuestas de títulos académicos
+                </li>
+                <li class="mb-2">
+                    <i data-feather="check" class="text-success me-2"></i>
+                    Matriz de operacionalización preparada
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

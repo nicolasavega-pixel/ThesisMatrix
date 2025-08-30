@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+
+{% block title %}Paso 4: Detalles del Problema - TesisPlan Asistente{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 bg-dark">
+            <div class="card-header">
+                <h3 class="card-title mb-0">
+                    <i data-feather="search" class="me-2"></i>
+                    Paso 4: Detalles del Problema de Investigación
+                </h3>
+                <p class="text-muted mb-0">
+                    Ahora responde estas preguntas sobre el problema
+                </p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-4">
+                        <label for="lugar" class="form-label">
+                            <strong>¿Dónde has identificado esta problemática?</strong>
+                        </label>
+                        <input type="text" class="form-control" id="lugar" name="lugar" 
+                               placeholder="Ej: Universidad Nacional, Hospital Central, Empresa ABC..." required>
+                        <div class="form-text">
+                            Especifica el lugar, institución, región o contexto donde observaste el problema.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="publico" class="form-label">
+                            <strong>¿A quién vas a realizar el estudio?</strong>
+                        </label>
+                        <input type="text" class="form-control" id="publico" name="publico" 
+                               placeholder="Ej: Estudiantes de 5to año, Trabajadores de la salud, Gerentes..." required>
+                        <div class="form-text">
+                            Define claramente tu población objetivo o grupo de estudio.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="periodo" class="form-label">
+                            <strong>¿Cuál es el período donde analizarás el problema?</strong>
+                        </label>
+                        <input type="text" class="form-control" id="periodo" name="periodo" 
+                               placeholder="Ej: 2024, Enero-Junio 2024, Último trimestre 2023..." required>
+                        <div class="form-text">
+                            Especifica el marco temporal de tu investigación.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="problema_mod" class="form-label">
+                            <strong>¿Cuál es el problema de investigación elegido y modificado según resultado anterior?</strong>
+                        </label>
+                        <textarea class="form-control" id="problema_mod" name="problema_mod" rows="4" 
+                                placeholder="Reformula tu problema considerando la delimitación anterior..." required></textarea>
+                        <div class="form-text">
+                            Basándote en toda la información anterior, reformula tu problema de manera específica y clara.
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <h5 class="mb-3">
+                        <i data-feather="settings" class="me-2"></i>
+                        Opciones de Generación
+                    </h5>
+
+                    <div class="mb-4">
+                        <label class="form-label">
+                            <strong>¿Quieres generar ahora la Matriz de Consistencia?</strong>
+                        </label>
+                        <div class="mt-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="generar_matriz" id="matriz_si" value="si">
+                                <label class="form-check-label" for="matriz_si">Sí</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="generar_matriz" id="matriz_no" value="no" checked>
+                                <label class="form-check-label" for="matriz_no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">
+                            <strong>¿Quieres tener propuesta de títulos para la Tesis?</strong>
+                        </label>
+                        <div class="mt-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="generar_titulos" id="titulos_si" value="si">
+                                <label class="form-check-label" for="titulos_si">Sí</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="generar_titulos" id="titulos_no" value="no" checked>
+                                <label class="form-check-label" for="titulos_no">No</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('step3') }}" class="btn btn-outline-secondary">
+                            <i data-feather="arrow-left" class="me-2"></i>
+                            Anterior
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i data-feather="check" class="me-2"></i>
+                            Finalizar y Ver Resultados
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

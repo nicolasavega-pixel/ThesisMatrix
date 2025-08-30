@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}Resultados - TesisPlan Asistente{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="text-center mb-4">
+            <h2>
+                <i data-feather="award" class="me-2 text-success"></i>
+                ¡Felicitaciones! Tu Plan de Tesis está Listo
+            </h2>
+            <p class="text-muted">
+                Aquí tienes los resultados generados basados en tu información
+            </p>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="card border-0 bg-dark mb-4">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i data-feather="clipboard" class="me-2"></i>
+                    Resumen de tu Investigación
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <h6><strong>Tipo de Tesis:</strong></h6>
+                        <p class="text-muted">{{ session_data.get('tipo_tesis', 'No especificado') }}</p>
+                        
+                        <h6><strong>Enfoque Metodológico:</strong></h6>
+                        <p class="text-muted">{{ session_data.get('enfoque', 'No especificado') }}</p>
+                        
+                        <h6><strong>Diseño de Investigación:</strong></h6>
+                        <p class="text-muted">{{ session_data.get('diseno', 'No especificado') }}</p>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <h6><strong>Lugar de Estudio:</strong></h6>
+                        <p class="text-muted">{{ session_data.get('lugar', 'No especificado') }}</p>
+                        
+                        <h6><strong>Población Objetivo:</strong></h6>
+                        <p class="text-muted">{{ session_data.get('publico', 'No especificado') }}</p>
+                        
+                        <h6><strong>Período de Estudio:</strong></h6>
+                        <p class="text-muted">{{ session_data.get('periodo', 'No especificado') }}</p>
+                    </div>
+                </div>
+                
+                <h6><strong>Tema Delimitado:</strong></h6>
+                <p class="text-muted">{{ session_data.get('tema_delimitado', 'No especificado') }}</p>
+                
+                <h6><strong>Problema de Investigación:</strong></h6>
+                <p class="text-muted">{{ session_data.get('problema_mod', 'No especificado') }}</p>
+            </div>
+        </div>
+
+        <!-- Consistency Matrix Section -->
+        {% if matriz %}
+        <div class="card border-0 bg-dark mb-4">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i data-feather="grid" class="me-2"></i>
+                    📌 Matriz de Consistencia Generada
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th width="25%">Componente</th>
+                                <th width="75%">Contenido</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Problema General</strong></td>
+                                <td>{{ matriz.problema_general }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Objetivo General</strong></td>
+                                <td>{{ matriz.objetivo_general }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Hipótesis General</strong></td>
+                                <td>{{ matriz.hipotesis_general }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Variables/Categorías</strong></td>
+                                <td>
+                                    <ul class="mb-0">
+                                        {% for variable in matriz.variables %}
+                                        <li>{{ variable }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Metodología</strong></td>
+                                <td>
+                                    <ul class="mb-0">
+                                        <li><strong>Enfoque:</strong> {{ matriz.metodologia.enfoque }}</li>
+                                        <li><strong>Tipo:</strong> {{ matriz.metodologia.tipo }}</li>
+                                        <li><strong>Población:</strong> {{ matriz.metodologia.poblacion }}</li>
+                                        <li><strong>Muestra:</strong> {{ matriz.metodologia.muestra }}</li>
+                                        <li><strong>Técnicas:</strong> {{ matriz.metodologia.tecnicas }}</li>
+                                        <li><strong>Instrumentos:</strong> {{ matriz.metodologia.instrumentos }}</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Thesis Titles Section -->
+        {% if titulos %}
+        <div class="card border-0 bg-dark mb-4">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i data-feather="edit-3" class="me-2"></i>
+                    📌 Propuestas de Títulos para tu Tesis
+                </h4>
+            </div>
+            <div class="card-body">
+                {% for titulo in titulos %}
+                <div class="mb-4 p-3 border rounded">
+                    <h6 class="text-primary">Opción {{ titulo.numero }}:</h6>
+                    <h5 class="mb-2">{{ titulo.titulo }}</h5>
+                    <p class="text-muted mb-0">
+                        <strong>Justificación:</strong> {{ titulo.justificacion }}
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Actions Section -->
+        <div class="card border-0 bg-dark mb-4">
+            <div class="card-header">
+                <h4 class="card-title mb-0">
+                    <i data-feather="download" class="me-2"></i>
+                    Próximos Pasos
+                </h4>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <a href="{{ url_for('download_results') }}" class="btn btn-primary w-100">
+                            <i data-feather="download" class="me-2"></i>
+                            Descargar Resultados
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{{ url_for('reset') }}" class="btn btn-outline-secondary w-100">
+                            <i data-feather="refresh-cw" class="me-2"></i>
+                            Nueva Investigación
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="mt-4 p-3 bg-info rounded">
+                    <h6 class="mb-2">
+                        <i data-feather="lightbulb" class="me-2"></i>
+                        Recuerda:
+                    </h6>
+                    <p class="mb-0 small">
+                        Luego puedes generar la matriz de operacionalización desde la información reunida. 
+                        Esta matriz te servirá como base para desarrollar tus instrumentos de recolección de datos.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Information -->
+        {% if session_data.get('tiene_matriz') == 'ya_tengo' %}
+        <div class="alert alert-success border-0">
+            <h5 class="alert-heading">
+                <i data-feather="check-circle" class="me-2"></i>
+                Perfecto
+            </h5>
+            <p class="mb-0">
+                Como ya tienes tu matriz de consistencia, puedes proceder directamente a trabajar 
+                en el título y la matriz de operacionalización de tu investigación.
+            </p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
