@@ -121,3 +121,57 @@ class ThesisGenerator:
         }
         
         return justificaciones.get(numero, "Título bien estructurado que refleja el enfoque y diseño metodológico seleccionado.")
+    
+    def generate_titles_from_existing_matrix(self, matriz_existente):
+        """Generate 5 thesis title suggestions based on existing matrix"""
+        
+        # Extract key information from the existing matrix
+        objetivo = matriz_existente.get('objetivo_general', '')
+        problema = matriz_existente.get('problema_general', '')
+        enfoque = matriz_existente.get('metodologia_enfoque', '')
+        tipo_diseno = matriz_existente.get('metodologia_tipo', '')
+        
+        # Try to extract the main topic from objective or problem
+        tema_principal = ""
+        if objetivo:
+            # Extract topic from objective (usually after the action verb)
+            words = objetivo.split()
+            if len(words) > 2:
+                tema_principal = ' '.join(words[1:])  # Skip the action verb
+        elif problema:
+            # Extract from problem statement
+            problema_clean = problema.replace('¿', '').replace('?', '')
+            words = problema_clean.split()
+            if len(words) > 5:
+                tema_principal = ' '.join(words[2:])  # Skip common question words
+        
+        if not tema_principal:
+            tema_principal = "la investigación planteada"
+        
+        # Generate title variations based on the methodology
+        base_actions = ['Análisis', 'Estudio', 'Investigación', 'Evaluación', 'Examen']
+        
+        if 'experimental' in tipo_diseno.lower():
+            base_actions = ['Evaluación experimental', 'Análisis experimental', 'Estudio experimental', 'Investigación experimental', 'Examen experimental']
+        elif 'descriptivo' in tipo_diseno.lower():
+            base_actions = ['Análisis descriptivo', 'Estudio descriptivo', 'Caracterización', 'Descripción', 'Diagnóstico']
+        elif 'comparativo' in tipo_diseno.lower():
+            base_actions = ['Análisis comparativo', 'Estudio comparativo', 'Comparación', 'Evaluación comparativa', 'Contraste']
+        
+        titulos = []
+        
+        for i, accion in enumerate(base_actions):
+            if enfoque.lower() == 'mixto':
+                titulo = f"{accion} de {tema_principal.lower()} - Enfoque mixto"
+            else:
+                titulo = f"{accion} de {tema_principal.lower()}"
+            
+            justificacion = f"Este título refleja adecuadamente el {tipo_diseno.lower()} planteado en tu matriz de consistencia, manteniendo coherencia con tu {enfoque.lower()} metodológico y el objetivo general establecido."
+            
+            titulos.append({
+                'numero': i + 1,
+                'titulo': titulo,
+                'justificacion': justificacion
+            })
+        
+        return titulos

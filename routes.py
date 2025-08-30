@@ -18,9 +18,9 @@ def start():
         session['tiene_matriz'] = tiene_matriz
         
         if tiene_matriz == 'ya_tengo':
-            session['step'] = 'complete'
-            flash('Perfecto, pasemos a trabajar el título y la matriz de operacionalización.', 'success')
-            return redirect(url_for('results'))
+            session['step'] = 'matriz_input'
+            flash('Perfecto, ahora ingresa tu matriz de consistencia existente.', 'success')
+            return redirect(url_for('matriz_input'))
         else:
             session['step'] = 2
             return redirect(url_for('step2'))
@@ -75,6 +75,36 @@ def step4():
     
     return render_template('step4.html')
 
+@app.route('/matriz_input', methods=['GET', 'POST'])
+def matriz_input():
+    """Step for users who already have their consistency matrix"""
+    if session.get('step') != 'matriz_input':
+        return redirect(url_for('index'))
+    
+    if request.method == 'POST':
+        # Save the matrix components
+        session['matriz_existente'] = {
+            'problema_general': request.form.get('problema_general'),
+            'objetivo_general': request.form.get('objetivo_general'),
+            'hipotesis_general': request.form.get('hipotesis_general'),
+            'variables': request.form.get('variables'),
+            'metodologia_enfoque': request.form.get('metodologia_enfoque'),
+            'metodologia_tipo': request.form.get('metodologia_tipo'),
+            'metodologia_poblacion': request.form.get('metodologia_poblacion'),
+            'metodologia_muestra': request.form.get('metodologia_muestra'),
+            'metodologia_tecnicas': request.form.get('metodologia_tecnicas'),
+            'metodologia_instrumentos': request.form.get('metodologia_instrumentos')
+        }
+        
+        # Set basic thesis information from the matrix
+        session['tipo_tesis'] = request.form.get('tipo_tesis', 'No especificado')
+        session['generar_titulos'] = request.form.get('generar_titulos', 'no')
+        
+        session['step'] = 'complete'
+        return redirect(url_for('results'))
+    
+    return render_template('matriz_input.html')
+
 @app.route('/results')
 def results():
     """Display final results and generated content"""
@@ -83,15 +113,37 @@ def results():
     
     generator = ThesisGenerator()
     
-    # Generate matrix if requested
+    # Generate matrix if requested, or use existing matrix
     matriz_consistencia = None
     if session.get('generar_matriz') == 'si':
         matriz_consistencia = generator.generate_consistency_matrix(session)
+    elif session.get('matriz_existente'):
+        # Format existing matrix to match the expected structure
+        existing = session.get('matriz_existente')
+        matriz_consistencia = {
+            'problema_general': existing.get('problema_general'),
+            'objetivo_general': existing.get('objetivo_general'),
+            'hipotesis_general': existing.get('hipotesis_general'),
+            'variables': existing.get('variables', '').split('\n') if existing.get('variables') else [],
+            'metodologia': {
+                'enfoque': existing.get('metodologia_enfoque'),
+                'tipo': existing.get('metodologia_tipo'),
+                'poblacion': existing.get('metodologia_poblacion'),
+                'muestra': existing.get('metodologia_muestra'),
+                'tecnicas': existing.get('metodologia_tecnicas'),
+                'instrumentos': existing.get('metodologia_instrumentos')
+            }
+        }
     
     # Generate titles if requested
     titulos_propuestos = None
     if session.get('generar_titulos') == 'si':
-        titulos_propuestos = generator.generate_thesis_titles(session)
+        if session.get('matriz_existente'):
+            # Generate titles based on existing matrix
+            titulos_propuestos = generator.generate_titles_from_existing_matrix(session.get('matriz_existente'))
+        else:
+            # Generate titles from collected session data
+            titulos_propuestos = generator.generate_thesis_titles(session)
     
     return render_template('results.html', 
                          matriz=matriz_consistencia,

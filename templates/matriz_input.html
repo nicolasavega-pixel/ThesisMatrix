@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Ingreso de Matriz Existente - TesisPlan Asistente{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card border-0 bg-dark">
+            <div class="card-header">
+                <h3 class="card-title mb-0">
+                    <i data-feather="upload" class="me-2"></i>
+                    Ingresa tu Matriz de Consistencia Existente
+                </h3>
+                <p class="text-muted mb-0">
+                    Ingresa la información de tu matriz de consistencia ya desarrollada
+                </p>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label for="tipo_tesis" class="form-label">
+                                <strong>Tipo de Tesis</strong>
+                            </label>
+                            <select class="form-select" id="tipo_tesis" name="tipo_tesis" required>
+                                <option value="">Selecciona el tipo de tesis</option>
+                                <option value="Pregrado">Pregrado</option>
+                                <option value="Maestría">Maestría</option>
+                                <option value="Doctorado">Doctorado</option>
+                                <option value="Especialización">Especialización</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="problema_general" class="form-label">
+                            <strong>Problema General de Investigación</strong>
+                        </label>
+                        <textarea class="form-control" id="problema_general" name="problema_general" rows="3" 
+                                placeholder="Ej: ¿Cuál es el impacto del uso de tecnologías digitales en el rendimiento académico de los estudiantes...?" required></textarea>
+                        <div class="form-text">
+                            Ingresa tu pregunta de investigación principal en formato interrogativo.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="objetivo_general" class="form-label">
+                            <strong>Objetivo General</strong>
+                        </label>
+                        <textarea class="form-control" id="objetivo_general" name="objetivo_general" rows="3" 
+                                placeholder="Ej: Determinar el impacto del uso de tecnologías digitales en el rendimiento académico..." required></textarea>
+                        <div class="form-text">
+                            Debe comenzar con un verbo en infinitivo y ser coherente con tu problema de investigación.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="hipotesis_general" class="form-label">
+                            <strong>Hipótesis General</strong>
+                        </label>
+                        <textarea class="form-control" id="hipotesis_general" name="hipotesis_general" rows="3" 
+                                placeholder="Ej: El uso de tecnologías digitales tiene un impacto positivo significativo en el rendimiento académico..." required></textarea>
+                        <div class="form-text">
+                            Si es un estudio cualitativo, puedes escribir "No aplica" o la hipótesis cualitativa correspondiente.
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="variables" class="form-label">
+                            <strong>Variables / Categorías de Análisis</strong>
+                        </label>
+                        <textarea class="form-control" id="variables" name="variables" rows="4" 
+                                placeholder="Ej: Variable independiente: Uso de tecnologías digitales&#10;Variable dependiente: Rendimiento académico&#10;Variables de control: Edad, género, nivel socioeconómico" required></textarea>
+                        <div class="form-text">
+                            Lista las variables principales de tu estudio, una por línea. Para estudios cualitativos, incluye las categorías de análisis.
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <h5 class="mb-3">
+                        <i data-feather="settings" class="me-2"></i>
+                        Información Metodológica
+                    </h5>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label for="metodologia_enfoque" class="form-label">
+                                <strong>Enfoque Metodológico</strong>
+                            </label>
+                            <select class="form-select" id="metodologia_enfoque" name="metodologia_enfoque" required>
+                                <option value="">Selecciona el enfoque</option>
+                                <option value="Cuantitativo">Cuantitativo</option>
+                                <option value="Cualitativo">Cualitativo</option>
+                                <option value="Mixto">Mixto</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="metodologia_tipo" class="form-label">
+                                <strong>Tipo/Diseño de Investigación</strong>
+                            </label>
+                            <input type="text" class="form-control" id="metodologia_tipo" name="metodologia_tipo" 
+                                   placeholder="Ej: Descriptivo, Experimental, Correlacional..." required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label for="metodologia_poblacion" class="form-label">
+                                <strong>Población</strong>
+                            </label>
+                            <input type="text" class="form-control" id="metodologia_poblacion" name="metodologia_poblacion" 
+                                   placeholder="Ej: Estudiantes universitarios de Lima..." required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="metodologia_muestra" class="form-label">
+                                <strong>Muestra</strong>
+                            </label>
+                            <input type="text" class="form-control" id="metodologia_muestra" name="metodologia_muestra" 
+                                   placeholder="Ej: 300 estudiantes seleccionados aleatoriamente..." required>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <label for="metodologia_tecnicas" class="form-label">
+                                <strong>Técnicas de Recolección</strong>
+                            </label>
+                            <input type="text" class="form-control" id="metodologia_tecnicas" name="metodologia_tecnicas" 
+                                   placeholder="Ej: Encuesta, Entrevista, Observación..." required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="metodologia_instrumentos" class="form-label">
+                                <strong>Instrumentos</strong>
+                            </label>
+                            <input type="text" class="form-control" id="metodologia_instrumentos" name="metodologia_instrumentos" 
+                                   placeholder="Ej: Cuestionario, Guía de entrevista, Ficha de observación..." required>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <h5 class="mb-3">
+                        <i data-feather="edit-3" class="me-2"></i>
+                        Opciones Adicionales
+                    </h5>
+
+                    <div class="mb-4">
+                        <label class="form-label">
+                            <strong>¿Quieres generar propuestas de títulos para tu tesis?</strong>
+                        </label>
+                        <div class="mt-2">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="generar_titulos" id="titulos_si" value="si">
+                                <label class="form-check-label" for="titulos_si">Sí</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="generar_titulos" id="titulos_no" value="no" checked>
+                                <label class="form-check-label" for="titulos_no">No</label>
+                            </div>
+                        </div>
+                        <div class="form-text">
+                            Basándose en tu matriz existente, puedo sugerir títulos alternativos para tu tesis.
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('start') }}" class="btn btn-outline-secondary">
+                            <i data-feather="arrow-left" class="me-2"></i>
+                            Volver
+                        </a>
+                        <button type="submit" class="btn btn-success">
+                            <i data-feather="check" class="me-2"></i>
+                            Continuar con mi Matriz
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="mt-4 p-3 bg-info rounded">
+            <h6 class="mb-2">
+                <i data-feather="info" class="me-2"></i>
+                Importante
+            </h6>
+            <p class="mb-0 small">
+                Al ingresar tu matriz existente, podrás proceder directamente a generar propuestas de títulos 
+                y trabajar en la matriz de operacionalización. Asegúrate de completar todos los campos 
+                para obtener mejores resultados.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
