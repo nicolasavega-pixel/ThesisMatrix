@@ -28,13 +28,13 @@
                 </p>
             </div>
             <div class="card-body">
-                {% for item in matriz_operacionalizacion %}
+                {% for elemento in matriz_operacionalizacion %}
                 <div class="mb-5 p-4 border rounded">
-                    {% if item.variable %}
+                    {% if elemento.variable %}
                     <!-- Quantitative Variable -->
                     <h5 class="text-primary mb-3">
                         <i data-feather="bar-chart-2" class="me-2"></i>
-                        {{ item.variable }}
+                        {{ elemento.variable }}
                     </h5>
                     
                     <div class="table-responsive">
@@ -42,17 +42,17 @@
                             <tbody>
                                 <tr>
                                     <td width="25%"><strong>Definición Conceptual</strong></td>
-                                    <td>{{ item.definicion_conceptual }}</td>
+                                    <td>{{ elemento.definicion_conceptual }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Definición Operacional</strong></td>
-                                    <td>{{ item.definicion_operacional }}</td>
+                                    <td>{{ elemento.definicion_operacional }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Dimensiones</strong></td>
                                     <td>
                                         <ul class="mb-0">
-                                            {% for dimension in item.dimensiones %}
+                                            {% for dimension in elemento.dimensiones %}
                                             <li>{{ dimension }}</li>
                                             {% endfor %}
                                         </ul>
@@ -62,7 +62,7 @@
                                     <td><strong>Indicadores</strong></td>
                                     <td>
                                         <ul class="mb-0">
-                                            {% for indicador in item.indicadores %}
+                                            {% for indicador in elemento.indicadores %}
                                             <li>{{ indicador }}</li>
                                             {% endfor %}
                                         </ul>
@@ -72,19 +72,19 @@
                                     <td><strong>Ítems</strong></td>
                                     <td>
                                         <ul class="mb-0">
-                                            {% for item_text in item.items %}
-                                            <li>{{ item_text }}</li>
+                                            {% for item_texto in elemento.items %}
+                                            <li>{{ item_texto }}</li>
                                             {% endfor %}
                                         </ul>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><strong>Escala de Medición</strong></td>
-                                    <td><span class="badge bg-info">{{ item.escala }}</span></td>
+                                    <td><span class="badge bg-info">{{ elemento.escala }}</span></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Instrumento</strong></td>
-                                    <td><span class="badge bg-success">{{ item.instrumento }}</span></td>
+                                    <td><span class="badge bg-success">{{ elemento.instrumento }}</span></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -94,7 +94,7 @@
                     <!-- Qualitative Category -->
                     <h5 class="text-warning mb-3">
                         <i data-feather="message-circle" class="me-2"></i>
-                        {{ item.categoria }}
+                        {{ elemento.categoria }}
                     </h5>
                     
                     <div class="table-responsive">
@@ -102,13 +102,13 @@
                             <tbody>
                                 <tr>
                                     <td width="25%"><strong>Definición Conceptual</strong></td>
-                                    <td>{{ item.definicion_conceptual }}</td>
+                                    <td>{{ elemento.definicion_conceptual }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Subcategorías</strong></td>
                                     <td>
                                         <ul class="mb-0">
-                                            {% for subcategoria in item.subcategorias %}
+                                            {% for subcategoria in elemento.subcategorias %}
                                             <li>{{ subcategoria }}</li>
                                             {% endfor %}
                                         </ul>
@@ -118,7 +118,7 @@
                                     <td><strong>Indicadores</strong></td>
                                     <td>
                                         <ul class="mb-0">
-                                            {% for indicador in item.indicadores %}
+                                            {% for indicador in elemento.indicadores %}
                                             <li>{{ indicador }}</li>
                                             {% endfor %}
                                         </ul>
@@ -128,7 +128,7 @@
                                     <td><strong>Preguntas Guía</strong></td>
                                     <td>
                                         <ul class="mb-0">
-                                            {% for pregunta in item.preguntas_guia %}
+                                            {% for pregunta in elemento.preguntas_guia %}
                                             <li>{{ pregunta }}</li>
                                             {% endfor %}
                                         </ul>
@@ -136,11 +136,11 @@
                                 </tr>
                                 <tr>
                                     <td><strong>Técnica</strong></td>
-                                    <td><span class="badge bg-info">{{ item.tecnica }}</span></td>
+                                    <td><span class="badge bg-info">{{ elemento.tecnica }}</span></td>
                                 </tr>
                                 <tr>
                                     <td><strong>Instrumento</strong></td>
-                                    <td><span class="badge bg-success">{{ item.instrumento }}</span></td>
+                                    <td><span class="badge bg-success">{{ elemento.instrumento }}</span></td>
                                 </tr>
                             </tbody>
                         </table>
